@@ -35,7 +35,7 @@ class LaravelKhalti
         $body =  [
             'return_url' => $this->callback_url,
             'website_url' => $this->website_url,
-            'amount' => $amount * 100,
+            'amount' => $amount,
             'purchase_order_id' => $poi,
             'purchase_order_name' => $pon
         ];
