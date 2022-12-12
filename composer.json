@@ -1,0 +1,28 @@
+{
+    "name": "dipesh79/laravel-khalti",
+    "description": "Laravel Khalti - A simple Laravel Package to integrate khalti payment.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dipesh79\\LaravelKhalti\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dipesh79",
+            "email": "dipeshkhanal79@gmail.com",
+            "homepage": "https://www.khanaldipesh.com.np",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dipesh79\\LaravelKhalti\\KhaltiServiceProvider"
+            ]   
+        }
+    }
+}
