@@ -32,7 +32,7 @@ And publish "Dipesh79\LaravelKhalti\KhaltiServiceProvider"
 Redirect the user to payment page from your controller
 
 ```
-use Dipesh79\LaravelEsewa\LaravelEsewa;
+use Dipesh79\LaravelKhalti\LaravelKhalti;
 
 //Your Controller Method
 public function khaltiPayment()
@@ -54,19 +54,53 @@ public function khaltiPayment()
 
 After Successfull Payment khalti will redirect the user to your callback url.
 
-Callback URL (It must be GET Method)
+Callback URL (It sould support GET Method)
 ```
-public function callBackCase(Request $request)
+public function callBackFunction(Request $request)
 {
-    $order_id = $request->oid;
-    $payment = Payment::where('order_id', $order_id)->first();
-    $payment->status = "Success";
-    $payment->save();
-
-    //Other Tasks
-           
+    //Success Payment    
+    if($reauest->pidx)
+    {
+        $payment = Payment::where('yout_pidx_id', $request->pidx)->first();
+        $payment->status = "Success";
+        $payment->save();
+    }
+    else
+    {
+        //Payment Failed
+    }
 }
 ```
+
+### To check the status of payment do the follwing
+```
+public function checkStatus($pidx)
+{
+     $khalti = new LaravelKhalti();
+     $status = $khalti->checkStatus($pidx);
+     
+     //The status will look like this
+     array:6 [▼
+      "pidx" => "pidx id"
+      "total_amount" => 2000 //In Paisa
+      "status" => "Completed"
+      "transaction_id" => "some transaction id unique for khalti"
+      "fee" => 60
+      "refunded" => false
+      ]
+      
+      //Now you can update your payment status as per need.
+}
+      
+
+```
+
+Possible Status:
+Completed //This is only success.
+Pending
+Refunded
+Expired (Rare Case)
+
 
 
 
