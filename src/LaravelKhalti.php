@@ -40,13 +40,32 @@ class LaravelKhalti
             'purchase_order_name' => $pon
         ];
 
-        $response = Http::withHeaders($headers)->post($khalti_url . 'epayment/initiate/',$body);
+        $response = Http::withHeaders($headers)->post($khalti_url . 'epayment/initiate/', $body);
         $pidx = $response['pidx'];
         $url = $response['payment_url'];
         $result = [
-            'pidx'=>$pidx,
-            'url'=>$url
+            'pidx' => $pidx,
+            'url' => $url
         ];
-        return $result; 
+        return $result;
+    }
+
+    public function checkStatus($pidx)
+    {
+        if ($this->env == "Sandbox") {
+            $khalti_url = "https://a.khalti.com/api/v2/";
+        } elseif ($this->env == "Live") {
+            $khalti_url = "https://khalti.com/api/v2/";
+        } else {
+            return "Please specify environment.";
+        }
+        $headers = [
+            'Authorization' => 'Key ' . $this->secret_key
+        ];
+        $body =  [
+            'pidx' => $pidx
+        ];
+        $response = Http::withHeaders($headers)->post($khalti_url . 'epayment/lookup/', $body);
+        return $response->json();
     }
 }
