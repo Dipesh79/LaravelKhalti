@@ -21,12 +21,26 @@ class LaravelKhalti
 
     public function khaltiCheckout($amount, $poi, $pon)
     {
+        if (!$this->secret_key)
+        {
+            throw new \Exception("Secret Key Not Found");
+        }
+        if (!$this->website_url)
+        {
+            throw new \Exception("Website Url Not Found");
+        }
+        if (!$this->callback_url)
+        {
+            throw new \Exception("Callback Url Not Found");
+        }
+
+
         if ($this->env == "Sandbox") {
             $khalti_url = "https://a.khalti.com/api/v2/";
         } elseif ($this->env == "Live") {
             $khalti_url = "https://khalti.com/api/v2/";
         } else {
-            return "Please specify environment.";
+            throw new \Exception("Please Specify Environment");
         }
 
         $headers = [
@@ -52,12 +66,16 @@ class LaravelKhalti
 
     public function checkStatus($pidx)
     {
+        if (!$this->secret_key)
+        {
+            throw new \Exception("Secret Key Not Found");
+        }
         if ($this->env == "Sandbox") {
             $khalti_url = "https://a.khalti.com/api/v2/";
         } elseif ($this->env == "Live") {
             $khalti_url = "https://khalti.com/api/v2/";
         } else {
-            return "Please specify environment.";
+            throw new \Exception("Please Specify Environment");
         }
         $headers = [
             'Authorization' => 'Key ' . $this->secret_key
