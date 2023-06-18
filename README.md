@@ -54,12 +54,12 @@ public function khaltiPayment()
 
 After Successfull Payment khalti will redirect the user to your callback url.
 
-Callback URL (It sould support GET Method)
+Callback URL (It should support GET Method)
 ```
 public function callBackFunction(Request $request)
 {
     //Success Payment    
-    if($reauest->pidx)
+    if($request->pidx)
     {
         $payment = Payment::where('yout_pidx_id', $request->pidx)->first();
         $payment->status = "Success";
