@@ -46,7 +46,7 @@ public function khaltiPayment()
     $payment_response = $khalti->khaltiCheckout($amount,$order_id,$order_name);
     
     $pidx = $payment_response['pidx']; //Store this to your db for future reference.
-    $url = $payment_response['payment_url'];
+    $url = $payment_response['url'];
     return redirect($url);
 }
 
